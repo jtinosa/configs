@@ -26,18 +26,29 @@ call plug#begin()
 Plug 'preservim/nerdtree'
 Plug 'neoclide/coc.nvim'
 Plug 'itchyny/lightline.vim'
+Plug 'voldikss/vim-floaterm'
+Plug 'nanotee/zoxide.vim'
 
 call plug#end()
 
 nnoremap <leader>n :NERDTreeFocus<CR>
 nnoremap <C-n> :NERDTree<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
-nnoremap <C-f> :NERDTreeFind<CR>
-nnoremap <C-b> :bel terminal<CR>
+"nnoremap <C-f> :NERDTreeFind<CR>
+"nnoremap <C-b> :bel terminal<CR>
+nnoremap t :FloatermToggle<CR>
+nnoremap f :FZF<CR>
+nnoremap cd :call ExecuteZ()<CR>
+
 " use <tab> for trigger completion and navigate to the next complete item
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+function! ExecuteZ()
+    let user_input = input('Path: ')
+    execute 'Z' user_input
 endfunction
 
 inoremap <silent><expr> <Tab>
